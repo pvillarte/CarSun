@@ -1,0 +1,30 @@
+﻿@model CarSun.Models.Marca
+
+@{
+    ViewData["Title"] = "Marca - Borrar";
+}
+
+<h2 class="text-center">¿Seguro que quieres borrar la marca <strong>@Model.Nombre</strong>?</h2>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Pais)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Pais)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Eliminar" class="btn btn-danger" />
+        <a class="btn btn-success" asp-action="Index">Volver al listado</a>
+    </form>
+</div>
