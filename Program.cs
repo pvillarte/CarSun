@@ -17,10 +17,9 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminRole", policy => policy.RequireRole("admin"));
-    options.AddPolicy("HighRole", policy => policy.RequireRole("admin", "high"));
-    options.AddPolicy("MidRole", policy => policy.RequireRole("admin", "high","mid"));
-    options.AddPolicy("LowRole", policy => policy.RequireRole("admin", "high", "mid", "low"));
+    options.AddPolicy("Admin", policy => policy.RequireRole("Administrador"));
+    options.AddPolicy("Edit", policy => policy.RequireRole("Administrador", "Editor"));
+    options.AddPolicy("Read", policy => policy.RequireRole("Administrador", "Editor", "Lector"));
 });
 
 var app = builder.Build();
@@ -33,7 +32,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
