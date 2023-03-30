@@ -1,0 +1,51 @@
+﻿@page
+@model EnableAuthenticatorModel
+@{
+    ViewData["Title"] = "Configurar aplicación 2FA";
+    ViewData["ActivePage"] = ManageNavPages.TwoFactorAuthentication;
+}
+
+<partial name="_StatusMessage" for="StatusMessage" />
+<h3>@ViewData["Title"]</h3>
+<div>
+    <p>Para usar la autenticación de doble factor sigue los siguientes pasos:</p>
+    <ol class="list">
+        <li>
+            <p>
+                Descarga una aplicación de autenticación en dos pasos como Microsoft Authenticator para
+                <a href="https://go.microsoft.com/fwlink/?Linkid=825072">Android</a> y
+                <a href="https://go.microsoft.com/fwlink/?Linkid=825073">iOS</a> o
+                Google Authenticator para
+                <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&amp;hl=en">Android</a> y
+                <a href="https://itunes.apple.com/us/app/google-authenticator/id388497605?mt=8">iOS</a>.
+            </p>
+        </li>
+        <li>
+            <p>Introduce esta clave <kbd>@Model.SharedKey</kbd> en tu aplicación
+                de gestión de autenticación elegida. Los espacios y mayúsculas no importan</p>
+        </li>
+        <li>
+            <p>
+                Una vez introducido el código, tu aplicación de autenticación de doble factor te proporcionará un código único.
+                Introduce el código en la caja de confirmación inferior.
+            </p>
+            <div class="row">
+                <div class="col-md-6">
+                    <form id="send-code" method="post">
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.Code" class="form-control" autocomplete="off" placeholder="Por favor introduzca el código ."/>
+                            <label asp-for="Input.Code" class="control-label form-label">Código de verificación</label>
+                            <span asp-validation-for="Input.Code" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="w-100 btn btn-lg btn-primary">Verificar</button>
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                    </form>
+                </div>
+            </div>
+        </li>
+    </ol>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -28,7 +28,7 @@ public class MarcasController : Controller
         return View();
     }
 
-    [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "EditRole")]
+    [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "MidRole")]
     public IActionResult Create(Marca marca)
     {
         if (ModelState.IsValid)
@@ -55,7 +55,7 @@ public class MarcasController : Controller
         return View(marca);
     }
 
-    [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "EditRole")]
+    [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "MidRole")]
     public IActionResult Edit(Marca marca)
     {
         if (ModelState.IsValid)
@@ -94,7 +94,7 @@ public class MarcasController : Controller
         return View(marca);
     }
 
-    [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "EditRole")]
+    [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "MidRole")]
     public IActionResult Delete(int id)
     {
         var marca = _context.Marcas.Find(id);
