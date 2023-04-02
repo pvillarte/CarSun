@@ -1,4 +1,4 @@
-﻿@model IEnumerable<CarSun.Models.Marca>
+﻿@model Paginador<Marca>
 
 @{
     ViewData["Title"] = "Marcas - Listado";
@@ -16,15 +16,15 @@
                 <a class="btn btn-sm btn-outline-dark" asp-action="Create">Crear</a>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Nombre)
+                Nombre
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Pais)
+                Pais
             </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+@foreach (var item in Model.Resultado) {
         <tr>
             <td class="text-center">
                 <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@item.Id">Editar</a> 
@@ -40,3 +40,4 @@
 }
     </tbody>
 </table>
+<partial name="_Paginador" />

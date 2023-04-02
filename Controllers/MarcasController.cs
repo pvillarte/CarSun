@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using CarSun.Data;
 using CarSun.Models;
 using Microsoft.AspNetCore.Authorization;
+using CarSun.Models.Helper;
 
 namespace CarSun.Controllers;
 
@@ -18,9 +19,10 @@ public class MarcasController : Controller
     #endregion
 
     #region CRUD
-    public IActionResult Index()
+    public IActionResult Index(int pagina = 1)
     {
-        return View(_context.Marcas.ToList());
+        var marcasPaginadas = new Paginador<Marca>(_context.Marcas, pagina);
+        return View(marcasPaginadas);
     }
 
     public IActionResult Create()

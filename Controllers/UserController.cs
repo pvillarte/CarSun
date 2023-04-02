@@ -1,5 +1,6 @@
 ﻿using CarSun.Data;
 using CarSun.Models;
+using CarSun.Models.Helper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -23,9 +24,10 @@ public class UserController : Controller
     #endregion
 
     #region CRUD
-    public IActionResult Index()
+    public IActionResult Index(int pagina = 1)
     {
-        return View(_context.Users.ToList());
+        var usuariosPaginados = new Paginador<IdentityUser>(_context.Users, pagina);
+        return View(usuariosPaginados);
     }
 
     public IActionResult Edit(string id)

@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity;
-@model IEnumerable<IdentityUser>
+@model Paginador<IdentityUser>
 
 @{
     ViewData["Title"] = "Usuarios - Listado";
@@ -16,7 +16,7 @@
             <th class="col-md-2 text-center">
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                @Html.DisplayName("Email")
             </th>
             <th>
                 @Html.DisplayName("Teléfono")
@@ -27,7 +27,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Resultado)
         {
             <tr>
                 <td class="text-center">
@@ -47,3 +47,4 @@
         }
     </tbody>
 </table>
+<partial name="_Paginador" />
