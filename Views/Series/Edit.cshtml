@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Serie - Editar";
+    var actualidad = "Actualidad";
 }
 
 <div class="card">
@@ -22,6 +23,33 @@
                     <label asp-for="Marca" class="control-label">Marca</label>
                     <select asp-items="ViewBag.Marcas" asp-for="MarcaId" class="form-control"></select>
                 </div>
+                <div class="form-group">
+                    <label asp-for="Generaciones" class="control-label">Generaciones</label>
+                    <ul class="list-group-numbered list-unstyled">
+                        @foreach (var subitem in Model.Generaciones.OrderBy(g => g.Iteracion))
+                        {
+                            <li class="list-group-item align-items-center">
+                                @subitem.Nombre |
+                                <span class="text-muted">@subitem.FechaInicio.Date.ToShortDateString() - </span>
+                                <span class="text-muted">
+                                    @if (subitem.FechaFin.HasValue)
+                                    {
+                                        @subitem.FechaFin.Value.Date.ToShortDateString()
+                                    }
+                                    else
+                                    {
+                                        @actualidad
+                                    }
+                                </span>
+                                <div class="float-end">
+                                    <a class="link-primary" asp-controller="Generaciones" asp-action="Edit" asp-route-id="@subitem.Id">Editar</a>
+                                    <span> </span>
+                                    <a class="link-danger" asp-controller="Generaciones" asp-action="Delete" asp-route-id="@subitem.Id">Borrar</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="card-footer">
@@ -31,6 +59,9 @@
                 </div>
                 <div>
                     <a class="btn btn-secondary" asp-action="Index">Volver al listado</a>
+                </div>
+                <div>
+                    <a class="btn btn-danger" asp-action="Delete" asp-route-id="@Model.Id">Borrar</a>
                 </div>
             </div>
         </div>

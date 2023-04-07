@@ -8,9 +8,8 @@
         Página
         <form style="display:inline;">
             <input type="hidden" id="registrosPorPagina" name="registrosPorPagina" value="@(Model.RegistrosPorPagina)" />
-            <input style="font-weight: bold;" value="@(Model.PaginaActual)" id="pagina"
-                   name="pagina" type="number" min="1" max="@(Model.TotalPaginas)" asp-action="Index"
-                   class="form-control-sm"/>
+            <input style="font-weight: bold;" value="@(Model.PaginaActual)" id="pagina" name="pagina" type="number" 
+                   min="1" max="@(Model.TotalPaginas)" asp-action="Index" class="form-control-sm"/>
         </form> de
         <strong>@Model.TotalPaginas</strong>
     </span>
@@ -59,6 +58,6 @@ else
 Registros por página: 
 <form style="display:inline;">
     <input type="hidden" id="pagina" name="pagina" value="1" />
-    <input value="@(Model.RegistrosPorPagina)" size="50" id="registrosPorPagina"
+    <input value="@(Model.RegistrosPorPagina)" id="registrosPorPagina" class="form-control-sm"
            name="registrosPorPagina" type="number" min="1" max="100" asp-action="Index" />
 </form>

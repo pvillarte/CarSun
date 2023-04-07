@@ -56,7 +56,7 @@ public class SeriesController : Controller
             return NotFound();
         }
 
-        var serie = _context.Series.Find(id);
+        var serie = _context.Series.Include(s => s.Generaciones).FirstOrDefault(x => x.Id == id);
         if (serie is null)
         {
             return NotFound();

@@ -2,7 +2,6 @@
 
 @{
     ViewData["Title"] = "Series - Listado";
-    var actualidad = "Actualidad";
 }
 
 <h2 class="text-center">Listado de series</h2>
@@ -40,24 +39,7 @@
                     @Html.DisplayFor(modelItem => item.Marca.Nombre)
                 </td>
                 <td>
-                    <ul class="list-group-numbered list-unstyled">
-                    @foreach(var subitem in item.Generaciones.OrderBy(g => g.Iteracion))
-                    {
-                        <li class="list-group-item">@subitem.Nombre |
-                                <span class="text-muted">@subitem.FechaInicio.Date.ToShortDateString() - </span>
-                                <span class="text-muted">
-                            @if (subitem.FechaFin.HasValue)
-                            {
-                                @subitem.FechaFin.Value.Date.ToShortDateString()
-                            }
-                            else
-                            {
-                                @actualidad
-                            }
-                            </span>
-                        </li>
-                    }
-                    </ul>
+                    @Html.DisplayFor(modelItem => item.Generaciones.Count)
                 </td>
             </tr>
         }
