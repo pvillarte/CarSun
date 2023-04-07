@@ -5,7 +5,13 @@
     </span>
     <span>&nbsp;|&nbsp;</span>
     <span>
-        Página <strong>@(Model.PaginaActual)</strong> de
+        Página
+        <form style="display:inline;">
+            <input type="hidden" id="registrosPorPagina" name="registrosPorPagina" value="@(Model.RegistrosPorPagina)" />
+            <input style="font-weight: bold;" value="@(Model.PaginaActual)" id="pagina"
+                   name="pagina" type="number" min="1" max="@(Model.TotalPaginas)" asp-action="Index"
+                   class="form-control-sm"/>
+        </form> de
         <strong>@Model.TotalPaginas</strong>
     </span>
     <span>&nbsp;|&nbsp;</span>
@@ -18,34 +24,41 @@ else
 
 @if (Model.PaginaActual > 1)
 {
-    @Html.ActionLink("<<", "Index", new { pagina = 1 },
+    @Html.ActionLink("<<", "Index", new { pagina = 1, registrosPorPagina = Model.RegistrosPorPagina },
                     new { @class = "btn btn-sm btn-default" })
     <span></span>
-    @Html.ActionLink("Anterior", "Index", new { pagina = Model.PaginaActual - 1 },
+    @Html.ActionLink("Anterior", "Index", new { pagina = Model.PaginaActual - 1, registrosPorPagina = Model.RegistrosPorPagina },
                     new { @class = "btn btn-sm btn-default" })
 }
 else
 {
-    @Html.ActionLink("<<", "Index", new { pagina = 1 },
+    @Html.ActionLink("<<", "Index", new { pagina = 1, registrosPorPagina = Model.RegistrosPorPagina },
                     new { @class = "btn btn-sm btn-default disabled" })
     <span></span>
-    @Html.ActionLink("Anterior", "Index", new { pagina = 1 },
+    @Html.ActionLink("Anterior", "Index", new { pagina = 1, registrosPorPagina = Model.RegistrosPorPagina },
                     new { @class = "btn btn-sm btn-default disabled" })
 }
 <span></span>
 @if (Model.PaginaActual < Model.TotalPaginas)
 {
-    @Html.ActionLink("Siguiente", "Index", new { pagina = Model.PaginaActual + 1 },
+    @Html.ActionLink("Siguiente", "Index", new { pagina = Model.PaginaActual + 1, registrosPorPagina = Model.RegistrosPorPagina },
                     new { @class = "btn btn-sm btn-default" })
     <span></span>
-    @Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas },
+    @Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas, registrosPorPagina = Model.RegistrosPorPagina },
                     new { @class = "btn btn-sm btn-default" })
 }
 else
 {
-    @Html.ActionLink("Siguiente", "Index", new { pagina = Model.TotalPaginas - 1 },
+    @Html.ActionLink("Siguiente", "Index", new { pagina = Model.TotalPaginas - 1, registrosPorPagina = Model.RegistrosPorPagina },
                     new { @class = "btn btn-sm btn-default disabled" })
     <span></span>
-    @Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas },
+    @Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas, registrosPorPagina = Model.RegistrosPorPagina },
                     new { @class = "btn btn-sm btn-default disabled" })
 }
+<span>&nbsp;|&nbsp;</span>
+Registros por página: 
+<form style="display:inline;">
+    <input type="hidden" id="pagina" name="pagina" value="1" />
+    <input value="@(Model.RegistrosPorPagina)" size="50" id="registrosPorPagina"
+           name="registrosPorPagina" type="number" min="1" max="100" asp-action="Index" />
+</form>

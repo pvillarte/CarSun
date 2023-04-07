@@ -19,9 +19,9 @@ public class MarcasController : Controller
     #endregion
 
     #region CRUD
-    public IActionResult Index(int pagina = 1)
+    public IActionResult Index(int pagina = 1, int registrosPorPagina=10)
     {
-        var marcasPaginadas = new Paginador<Marca>(_context.Marcas, pagina);
+        var marcasPaginadas = new Paginador<Marca>(_context.Marcas, pagina, registrosPorPagina);
         return View(marcasPaginadas);
     }
 

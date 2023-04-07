@@ -24,9 +24,9 @@ public class UserController : Controller
     #endregion
 
     #region CRUD
-    public IActionResult Index(int pagina = 1)
+    public IActionResult Index(int pagina = 1, int registrosPorPagina=10)
     {
-        var usuariosPaginados = new Paginador<IdentityUser>(_context.Users, pagina);
+        var usuariosPaginados = new Paginador<IdentityUser>(_context.Users, pagina, registrosPorPagina);
         return View(usuariosPaginados);
     }
 

@@ -19,9 +19,9 @@ public class SeriesController : Controller
     #endregion
 
     #region CRUD
-    public IActionResult Index(int pagina = 1)
+    public IActionResult Index(int pagina = 1, int registrosPorPagina=10)
     {
-        var seriesPaginadas = new Paginador<Serie>(_context.Series.Include(s => s.Marca).Include(s => s.Generaciones), pagina);
+        var seriesPaginadas = new Paginador<Serie>(_context.Series.Include(s => s.Marca).Include(s => s.Generaciones), pagina, registrosPorPagina);
         return View(seriesPaginadas);
     }
 
