@@ -1,6 +1,6 @@
 ﻿using CarSun.Models;
 
-namespace CarSun.Data.Mappings;
+namespace CarSun.Models;
 
 public class Serie
 {

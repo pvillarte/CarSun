@@ -4,8 +4,17 @@ namespace CarSun.Models.Helper;
 
 public class Paginador<T> where T : class
 {
-    #region Constructor
-    public Paginador(DbSet<T> items, int paginaActual=1, int registrosPorPagina = 8)
+    #region Constructores
+    public Paginador(DbSet<T> items, int paginaActual = 1, int registrosPorPagina = 10)
+    {
+        RegistrosPorPagina = registrosPorPagina;
+        PaginaActual = paginaActual;
+        TotalRegistros = items.Count();
+        Resultado = items.Skip((paginaActual - 1) * registrosPorPagina).Take(registrosPorPagina).ToList();
+        TotalPaginas = (int)Math.Ceiling((double)TotalRegistros / registrosPorPagina);
+    }
+
+    public Paginador(IQueryable<T> items, int paginaActual = 1, int registrosPorPagina = 10)
     {
         RegistrosPorPagina = registrosPorPagina;
         PaginaActual = paginaActual;

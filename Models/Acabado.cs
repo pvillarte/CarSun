@@ -1,6 +1,4 @@
-﻿using CarSun.Models.Enums;
-
-namespace CarSun.Models;
+﻿namespace CarSun.Models;
 
 public class Acabado
 {
