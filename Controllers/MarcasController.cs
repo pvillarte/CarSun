@@ -21,7 +21,7 @@ public class MarcasController : Controller
     #region CRUD
     public IActionResult Index(int pagina = 1, int registrosPorPagina = 10)
     {
-        var marcasPaginadas = new Paginador<Marca>(_context.Marcas, pagina, registrosPorPagina);
+        var marcasPaginadas = new Paginador<Marca>(_context.Marcas.OrderBy(m => m.Nombre), pagina, registrosPorPagina);
         return View(marcasPaginadas);
     }
 
@@ -49,7 +49,7 @@ public class MarcasController : Controller
             return NotFound();
         }
 
-        var marca = _context.Marcas.Find(id);
+        var marca = _context.Marcas.Include(m => m.Series).FirstOrDefault(m => m.Id == id);
         if (marca is null)
         {
             return NotFound();

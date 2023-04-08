@@ -22,31 +22,30 @@ public class GeneracionesController : Controller
         return View(generacionesPaginadas);
     }
 
-    public ActionResult Details(int id)
+    public IActionResult Create(int serieId = -1)
     {
-        return View();
-    }
-
-    public ActionResult Create()
-    {
-        return View();
+        var generacion = new Generacion() { SerieId = serieId };
+        ViewBag.Series = Selector<Serie>.GetSelectList(_context.Series.OrderBy(m => m.Nombre).ToList(), "Id", "Nombre", serieId);
+        return View(generacion);
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
+    public ActionResult Create(Generacion generacion)
     {
         try
         {
+            _context.Add(generacion);
+            _context.SaveChanges();
             return RedirectToAction(nameof(Index));
         }
         catch
         {
-            return View();
+            return View(generacion);
         }
     }
 
-    public ActionResult Edit(int id)
+    public IActionResult Edit(int id)
     {
         return View();
     }

@@ -1,4 +1,5 @@
-﻿using CarSun.Data.Mappings;
+﻿using System.ComponentModel.DataAnnotations;
+using CarSun.Data.Mappings;
 
 namespace CarSun.Models;
 
@@ -16,7 +17,9 @@ public class Generacion
     public int Id { get; set; }
     public int Iteracion { get; set; }
     public string Nombre { get; set; }
+    [Display(Name = "Fecha inicio")]
     public DateTime FechaInicio { get; set; }
+    [Display(Name = "Fecha fin")]
     public DateTime? FechaFin { get; set; }
     #endregion
 

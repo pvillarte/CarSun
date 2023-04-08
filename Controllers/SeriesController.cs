@@ -25,9 +25,13 @@ public class SeriesController : Controller
         return View(seriesPaginadas);
     }
 
-    public IActionResult Create()
+    public IActionResult Create(int? marcaId)
     {
         var serie = new Serie();
+        if (marcaId.HasValue)
+        {
+            serie.MarcaId = marcaId.Value;
+        }
         ViewBag.Marcas = Selector<Marca>.GetSelectList(_context.Marcas.OrderBy(m => m.Nombre).ToList(), "Id", "Nombre");
         return View(serie);
     }

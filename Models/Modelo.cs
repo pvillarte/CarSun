@@ -1,5 +1,4 @@
 ﻿using CarSun.Models.Enums;
-using CarSun.Data.Mappings;
 
 namespace CarSun.Models;
 

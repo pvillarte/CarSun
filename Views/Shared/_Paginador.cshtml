@@ -1,24 +1,21 @@
 ﻿@if (Model.TotalRegistros > 0)
 {
-    <span>
-        <strong>@Model.TotalRegistros</strong> registros encontrados
+    <span class="d-none d-lg-inline">
+        <strong>@Model.TotalRegistros</strong> registros encontrados<span> | </span>
     </span>
-    <span>&nbsp;|&nbsp;</span>
     <span>
         Página
         <form style="display:inline;">
             <input type="hidden" id="registrosPorPagina" name="registrosPorPagina" value="@(Model.RegistrosPorPagina)" />
             <input style="font-weight: bold;" value="@(Model.PaginaActual)" id="pagina" name="pagina" type="number" 
                    min="1" max="@(Model.TotalPaginas)" asp-action="Index" class="form-control-sm"/>
-        </form> de
-        <strong>@Model.TotalPaginas</strong>
+        </form> 
+        de <strong>@Model.TotalPaginas</strong><span> | </span>
     </span>
-    <span>&nbsp;|&nbsp;</span>
 }
 else
 {
-    <span>No hay resultados para esta búsqueda</span>
-    <span>&nbsp;|&nbsp;</span>
+    <span>No hay resultados para esta búsqueda | </span>
 }
 
 @if (Model.PaginaActual > 1)
@@ -54,8 +51,7 @@ else
     @Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas, registrosPorPagina = Model.RegistrosPorPagina },
                     new { @class = "btn btn-sm btn-default disabled" })
 }
-<span>&nbsp;|&nbsp;</span>
-Registros por página: 
+<span> | Registros por página: </span>
 <form style="display:inline;">
     <input type="hidden" id="pagina" name="pagina" value="1" />
     <input value="@(Model.RegistrosPorPagina)" id="registrosPorPagina" class="form-control-sm"
