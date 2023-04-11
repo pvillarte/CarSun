@@ -1,0 +1,70 @@
+﻿@page
+@using CarSun.Areas.Identity.Pages.Account;
+@model AccessDeniedModel
+@{
+    ViewData["Title"] = "Acceso denegado";
+}
+<style type="text/css">
+    .flip-card {
+        background-color: transparent;
+        height: 400px;
+    }
+
+    .flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        text-align: center;
+        transition: transform 0.8s;
+        transform-style: preserve-3d;
+    }
+
+    .flip-card:hover .flip-card-inner {
+        transform: rotateY(180deg);
+    }
+
+    .flip-card-front, .flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }
+
+    .flip-card-back {
+        transform: rotateY(180deg);
+    }
+</style>
+<header>
+    <div class="container">
+        <div class="card bg-light">
+            <div class="card-header">
+                <h1 class="card-title">@ViewData["Title"]</h1>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-4">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front">
+                                    <img style="height:400px" class="img-thumbnail rounded" src="~/images/jolinesmacho.jpg" alt="" />
+                                </div>
+                                <div class="flip-card-back">
+                                    <hr />
+                                    <p class="card-text fs-1">JOLINES</p>
+                                    <p class="card-text fs-1">MACHO</p>
+                                    <hr />
+                                    <a asp-action="Index" asp-controller="Home" class="btn btn-lg btn-outline-primary">Volver al menú</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-8">
+                        <div class="card-text fw-light fs-2">Vaya, parece que no debería estar por aquí...<div>
+                         <div class="card-text fw-light fs-2">Consulte a los administradores del sistema si necesita algún permiso extra para poder trabajar.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
