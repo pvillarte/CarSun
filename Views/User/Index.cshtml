@@ -43,4 +43,7 @@
         }
     </tbody>
 </table>
-<partial name="_Paginador" />
+<form asp-action="Index">
+    <partial name="_Paginador" />
+    <input asp-for="RegistrosPorPagina" class="form-control-sm" name="registrosPorPagina" type="number" min="1" max="100" />
+</form>

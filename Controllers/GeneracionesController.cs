@@ -14,12 +14,12 @@ public class GeneracionesController : Controller
     }
     #endregion
     #region CRUD
-    public IActionResult Index(int pagina = 1, int registrosPorPagina = 10, int marcaId = -1, int serieId = -1)
+    public IActionResult Index( int marcaId = -1, int serieId = -1)
     {
         ViewBag.MarcaId = Selector<Marca>.GetSelectList(_context.Marcas.ToList(), "Id", "Nombre", marcaId);
         ViewBag.SerieId = Selector<Serie>.GetSelectList(_context.Series.Where(s => s.MarcaId == marcaId).ToList(), "Id", "Nombre", serieId);
-        var generacionesPaginadas = new Paginador<Generacion>(_context.Generaciones.Where(g => g.SerieId == serieId), pagina, registrosPorPagina);
-        return View(generacionesPaginadas);
+        var generaciones = _context.Generaciones.Where(g => g.SerieId == serieId).ToList();
+        return View(generaciones);
     }
 
     public IActionResult Create(int serieId = -1)

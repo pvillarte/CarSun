@@ -1,4 +1,5 @@
-﻿using CarSun.Data.Mappings;
+﻿using System.ComponentModel.DataAnnotations;
+using CarSun.Data.Mappings;
 
 namespace CarSun.Models;
 
@@ -15,6 +16,8 @@ public class Marca
 
     #region Propiedades
     public int Id { get; set; }
+
+    [Display(Name = "Marca")]
     public string Nombre { get; set; }
     public string Pais { get; set; }
     #endregion

@@ -4,7 +4,7 @@
     ViewData["Title"] = "Series - Listado";
 }
 
-<h2 class="text-center  me-2">Listado de series</h2>
+<h2 class="text-center me-2">Listado de series</h2>
 
 <div class="card">
     <div class="card-header">
@@ -12,7 +12,7 @@
     </div>
     <div class="collapse" id="filtros">
         <div class="card card-body">
-            Some placeholder content for the first collapse revealed when the user activates the relevant trigger.
+            Aquí habrá filtros...
         </div>
     </div>
 </div>
@@ -55,4 +55,8 @@
         }
     </tbody>
 </table>
-<partial name="_Paginador" />
+
+<form asp-action="Index">
+    <partial name="_Paginador" />
+    <input asp-for="RegistrosPorPagina" class="form-control-sm" name="registrosPorPagina" type="number" min="1" max="100" />
+</form>

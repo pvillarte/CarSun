@@ -6,16 +6,28 @@
 
 <h2 class="text-center me-2">Listado de marcas</h2>
 
-<div class="card">
+
+<form asp-action="Index" class="card" method="get">
     <div class="card-header">
         <a class="link-primary" data-bs-toggle="collapse" href="#filtros" role="button" aria-expanded="false" aria-controls="filtros">Filtros búsqueda</a>
     </div>
     <div class="collapse" id="filtros">
-        <div class="card card-body">
-            Some placeholder content for the first collapse revealed when the user activates the relevant trigger.
+        <div class="card-body row row-cols-2 row-cols-sm-3 row-cols-lg-4">
+            <div>
+                <div class="input-group mb-2">
+                    <span class="input-group-text">Marca</span>
+                    <input class="form-control" id="marcaBusqueda" name="marcaBusqueda" value="@ViewData["marcaBusqueda"]">
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Busca</button>
+            </div>
         </div>
     </div>
-</div>
+    <input asp-for="PaginaActual" type="hidden" name="pagina" />
+    <input asp-for="RegistrosPorPagina" type="hidden" name="registrosPorPagina" />
+</form>
+
 
 <table class="table table-striped table-hover">
     <thead>
@@ -48,4 +60,9 @@
 }
     </tbody>
 </table>
-<partial name="_Paginador" />
+
+<form asp-action="Index">
+    <partial name="_Paginador" />
+    <input type="hidden" id="marcaBusqueda" name="marcaBusqueda" value="@ViewData["marcaBusqueda"]">
+    <input asp-for="RegistrosPorPagina" class="form-control-sm" name="registrosPorPagina" type="number" min="1" max="100" />
+</form>

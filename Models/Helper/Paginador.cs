@@ -8,19 +8,19 @@ public class Paginador<T> where T : class
     public Paginador(DbSet<T> items, int paginaActual = 1, int registrosPorPagina = 10)
     {
         RegistrosPorPagina = registrosPorPagina;
-        PaginaActual = paginaActual;
         TotalRegistros = items.Count();
-        Resultado = items.Skip((paginaActual - 1) * registrosPorPagina).Take(registrosPorPagina).ToList();
         TotalPaginas = (int)Math.Ceiling((double)TotalRegistros / registrosPorPagina);
+        PaginaActual = (TotalPaginas < paginaActual) ? TotalPaginas : paginaActual;
+        Resultado = items.Skip((((PaginaActual - 1) < 0) ? 0 : (PaginaActual - 1)) * registrosPorPagina).Take(registrosPorPagina).ToList();
     }
 
     public Paginador(IQueryable<T> items, int paginaActual = 1, int registrosPorPagina = 10)
     {
         RegistrosPorPagina = registrosPorPagina;
-        PaginaActual = paginaActual;
         TotalRegistros = items.Count();
-        Resultado = items.Skip((paginaActual - 1) * registrosPorPagina).Take(registrosPorPagina).ToList();
         TotalPaginas = (int)Math.Ceiling((double)TotalRegistros / registrosPorPagina);
+        PaginaActual = (TotalPaginas < paginaActual)? TotalPaginas : paginaActual;
+        Resultado = items.Skip((((PaginaActual - 1)<0)? 0 : (PaginaActual - 1)) * registrosPorPagina).Take(registrosPorPagina).ToList();
     }
     #endregion
 

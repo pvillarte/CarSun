@@ -19,9 +19,10 @@ public class MarcasController : Controller
     #endregion
 
     #region CRUD
-    public IActionResult Index(int pagina = 1, int registrosPorPagina = 10)
+    public IActionResult Index(int pagina = 1, int registrosPorPagina = 10, string marcaBusqueda = "")
     {
-        var marcasPaginadas = new Paginador<Marca>(_context.Marcas.OrderBy(m => m.Nombre), pagina, registrosPorPagina);
+        ViewData["marcaBusqueda"] = marcaBusqueda != string.Empty ? marcaBusqueda : ViewData["marcaBusqueda"] ?? string.Empty;
+        var marcasPaginadas = new Paginador<Marca>(_context.Marcas.Where(m => m.Nombre.Contains(marcaBusqueda)).OrderBy(m => m.Nombre), pagina, registrosPorPagina);
         return View(marcasPaginadas);
     }
 

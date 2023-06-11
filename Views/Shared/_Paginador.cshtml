@@ -1,15 +1,32 @@
-﻿@if (Model.TotalRegistros > 0)
+﻿<script>
+    function primeraPagina(){
+        $("#pagina").val(1);
+        $("#registrosPorPagina").val(@(Model.RegistrosPorPagina));
+    }
+    function ultimaPagina() {
+        $("#pagina").val(@(Model.TotalPaginas));
+        $("#registrosPorPagina").val(@Model.RegistrosPorPagina);
+    }
+    function anteriorPagina() {
+        $("#pagina").val(@(Model.PaginaActual) - 1);
+        $("#registrosPorPagina").val(@(Model.RegistrosPorPagina));
+    }
+    function siguientePagina() {
+        $("#pagina").val(@(Model.PaginaActual) + 1);
+        $("#registrosPorPagina").val(@(Model.RegistrosPorPagina));
+    }
+</script>
+
+
+@if (Model.TotalRegistros > 0)
 {
     <span class="d-none d-lg-inline">
         <strong>@Model.TotalRegistros</strong> registros encontrados<span> | </span>
     </span>
     <span>
         Página
-        <form style="display:inline;">
-            <input type="hidden" id="registrosPorPagina" name="registrosPorPagina" value="@(Model.RegistrosPorPagina)" />
-            <input style="font-weight: bold;" value="@(Model.PaginaActual)" id="pagina" name="pagina" type="number" 
-                   min="1" max="@(Model.TotalPaginas)" asp-action="Index" class="form-control-sm"/>
-        </form> 
+        <input style="font-weight: bold;" value="@(Model.PaginaActual)" id="pagina"  name="pagina" type="number"
+               min="1" max="@(Model.TotalPaginas)" asp-action="Index" class="form-control-sm" />
         de <strong>@Model.TotalPaginas</strong><span> | </span>
     </span>
 }
@@ -20,40 +37,23 @@ else
 
 @if (Model.PaginaActual > 1)
 {
-    @Html.ActionLink("<<", "Index", new { pagina = 1, registrosPorPagina = Model.RegistrosPorPagina },
-                    new { @class = "btn btn-sm btn-default" })
-    <span></span>
-    @Html.ActionLink("Anterior", "Index", new { pagina = Model.PaginaActual - 1, registrosPorPagina = Model.RegistrosPorPagina },
-                    new { @class = "btn btn-sm btn-default" })
+    <button class="btn btn-sm btn-default" onclick="primeraPagina(); this.form.submit()">&lt;&lt;</button>
+    <button class="btn btn-sm btn-default" onclick="anteriorPagina(); this.form.submit()">Anterior</button>
 }
 else
 {
-    @Html.ActionLink("<<", "Index", new { pagina = 1, registrosPorPagina = Model.RegistrosPorPagina },
-                    new { @class = "btn btn-sm btn-default disabled" })
-    <span></span>
-    @Html.ActionLink("Anterior", "Index", new { pagina = 1, registrosPorPagina = Model.RegistrosPorPagina },
-                    new { @class = "btn btn-sm btn-default disabled" })
+    <button class="btn btn-sm btn-default disabled" onclick="primeraPagina(); this.form.submit()">&lt;&lt;</button>
+    <button class="btn btn-sm btn-default disabled" onclick="anteriorPagina(); this.form.submit()">Anterior</button>
 }
-<span></span>
+
 @if (Model.PaginaActual < Model.TotalPaginas)
 {
-    @Html.ActionLink("Siguiente", "Index", new { pagina = Model.PaginaActual + 1, registrosPorPagina = Model.RegistrosPorPagina },
-                    new { @class = "btn btn-sm btn-default" })
-    <span></span>
-    @Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas, registrosPorPagina = Model.RegistrosPorPagina },
-                    new { @class = "btn btn-sm btn-default" })
+    <button class="btn btn-sm btn-default" onclick="siguientePagina(); this.form.submit()">Siguiente</button>
+    <button class="btn btn-sm btn-default" onclick="ultimaPagina(); this.form.submit()">&gt;&gt;</button>
 }
 else
 {
-    @Html.ActionLink("Siguiente", "Index", new { pagina = Model.TotalPaginas - 1, registrosPorPagina = Model.RegistrosPorPagina },
-                    new { @class = "btn btn-sm btn-default disabled" })
-    <span></span>
-    @Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas, registrosPorPagina = Model.RegistrosPorPagina },
-                    new { @class = "btn btn-sm btn-default disabled" })
+    <button class="btn btn-sm btn-default disabled" onclick="siguientePagina(); this.form.submit()">Siguiente</button>
+    <button class="btn btn-sm btn-default disabled" onclick="ultimaPagina(); this.form.submit()">&gt;&gt;</button>
 }
 <span> | Registros por página: </span>
-<form style="display:inline;">
-    <input type="hidden" id="pagina" name="pagina" value="1" />
-    <input value="@(Model.RegistrosPorPagina)" id="registrosPorPagina" class="form-control-sm"
-           name="registrosPorPagina" type="number" min="1" max="100" asp-action="Index" />
-</form>

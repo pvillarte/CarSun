@@ -1,4 +1,5 @@
-﻿using CarSun.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using CarSun.Models;
 
 namespace CarSun.Models;
 
@@ -15,6 +16,7 @@ public class Serie
 
     #region Propiedades
     public int Id { get; set; }
+    [Display(Name = "Fecha Serie")]
     public string Nombre { get; set; }
     #endregion
 
