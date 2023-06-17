@@ -9,6 +9,7 @@
         <h3>Editar marca</h3>
     </div>
     <form asp-action="Edit">
+        <input hidden asp-for="UserNameAudit" value="@User?.Identity?.Name" class="form-control" />
         <div class="card-body">
             <div class="row row-cols-md-2 row-cols-1">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>

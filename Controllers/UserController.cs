@@ -51,7 +51,7 @@ public class UserController : Controller
     }
 
     [HttpPost][ValidateAntiForgeryToken]
-    public IActionResult Edit(IdentityUser user, string? rolId )
+    public async Task<IActionResult> Edit(IdentityUser user, string? rolId )
     {
         if (ModelState.IsValid)
         {
@@ -62,7 +62,7 @@ public class UserController : Controller
                 {
                     _context.UserRoles.Add(new IdentityUserRole<string>(){ RoleId=rolId, UserId= user.Id});
                 }
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(true);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -94,7 +94,7 @@ public class UserController : Controller
     }
 
     [HttpPost][ValidateAntiForgeryToken]
-    public IActionResult Delete(IdentityUser user)
+    public async Task<IActionResult> Delete(IdentityUser user)
     {
         try
         {
@@ -102,7 +102,7 @@ public class UserController : Controller
             if (userToDelete is not null)
             {
                 _context.Users.Remove(userToDelete);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(true);
             }
             return RedirectToAction(nameof(Index));
         }

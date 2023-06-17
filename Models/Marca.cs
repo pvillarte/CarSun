@@ -1,9 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using CarSun.Data.Mappings;
+using CarSun.Models.Helper;
+using CarSun.Models.Interfaces;
 
 namespace CarSun.Models;
 
-public class Marca
+public class Marca : Auditable, IAuditable
 {
     #region Constructor
     public Marca()

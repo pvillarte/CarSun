@@ -39,12 +39,12 @@ public class SeriesController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Authorize(Policy = "Edit")]
-    public IActionResult Create(Serie serie)
+    public async Task<IActionResult> Create(Serie serie)
     {
         try
         {
             _context.Add(serie);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync(true);
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -72,12 +72,12 @@ public class SeriesController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Authorize(Policy = "Edit")]
-    public IActionResult Edit(Serie serie)
+    public async Task<IActionResult> Edit(Serie serie)
     {
         try
         {
             _context.Update(serie);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync(true);
         }
         catch (DbUpdateConcurrencyException)
         {
@@ -109,13 +109,13 @@ public class SeriesController : Controller
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Authorize(Policy = "Edit")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id)
     {
         var serie = _context.Series.Find(id);
         if (serie is not null)
         {
             _context.Series.Remove(serie);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync(true);
         }
         return RedirectToAction(nameof(Index));
     }

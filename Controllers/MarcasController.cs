@@ -32,12 +32,12 @@ public class MarcasController : Controller
     }
 
     [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "Edit")]
-    public IActionResult Create(Marca marca)
+    public async Task<IActionResult> Create(Marca marca)
     {
         if (ModelState.IsValid)
         {
             _context.Add(marca);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync(true, default, marca.UserNameAudit);
             return RedirectToAction(nameof(Index));
         }
         return View(marca);
@@ -59,14 +59,14 @@ public class MarcasController : Controller
     }
 
     [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "Edit")]
-    public IActionResult Edit(Marca marca)
+    public async Task<IActionResult> Edit(Marca marca)
     {
         if (ModelState.IsValid)
         {
             try
             {
                 _context.Update(marca);
-                _context.SaveChanges();
+                await _context.SaveChangesAsync(true, default, marca.UserNameAudit);
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -98,13 +98,13 @@ public class MarcasController : Controller
     }
 
     [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "Edit")]
-    public IActionResult Delete(int id)
+    public async Task<IActionResult> Delete(int id, string? userNameAudit)
     {
         var marca = _context.Marcas.Find(id);
         if (marca is not null)
         {
             _context.Marcas.Remove(marca);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync(true, default, userNameAudit);
         }
         return RedirectToAction(nameof(Index));
     }

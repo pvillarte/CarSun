@@ -14,7 +14,7 @@ public class GeneracionesController : Controller
     }
     #endregion
     #region CRUD
-    public IActionResult Index( int marcaId = -1, int serieId = -1)
+    public IActionResult Index(int marcaId = -1, int serieId = -1)
     {
         ViewBag.MarcaId = Selector<Marca>.GetSelectList(_context.Marcas.ToList(), "Id", "Nombre", marcaId);
         ViewBag.SerieId = Selector<Serie>.GetSelectList(_context.Series.Where(s => s.MarcaId == marcaId).ToList(), "Id", "Nombre", serieId);
@@ -31,12 +31,12 @@ public class GeneracionesController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(Generacion generacion)
+    public async Task<IActionResult> Create(Generacion generacion)
     {
         try
         {
             _context.Add(generacion);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync(true);
             return RedirectToAction(nameof(Index));
         }
         catch
@@ -52,7 +52,7 @@ public class GeneracionesController : Controller
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public IActionResult Edit(int id, IFormCollection collection)
     {
         try
         {
@@ -64,14 +64,14 @@ public class GeneracionesController : Controller
         }
     }
 
-    public ActionResult Delete(int id)
+    public IActionResult Delete(int id)
     {
         return View();
     }
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
+    public IActionResult Delete(int id, IFormCollection collection)
     {
         try
         {
