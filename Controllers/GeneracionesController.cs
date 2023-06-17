@@ -2,6 +2,7 @@
 using CarSun.Models.Helper;
 using CarSun.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarSun.Controllers;
 public class GeneracionesController : Controller
@@ -45,42 +46,63 @@ public class GeneracionesController : Controller
         }
     }
 
-    public IActionResult Edit(int id)
+    public IActionResult Edit(int? id)
     {
-        return View();
+        if (id is null)
+        {
+            return NotFound();
+        }
+
+        var generacion = _context.Generaciones.Include(m => m.Modelos).FirstOrDefault(m => m.Id == id);
+        if (generacion is null)
+        {
+            return NotFound();
+        }
+        ViewBag.Serie = Selector<Serie>.GetSelectList(_context.Series.OrderBy(m => m.Nombre).ToList(), "Id", "Nombre", generacion.SerieId);
+        return View(generacion);
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, IFormCollection collection)
+    [HttpPost][ValidateAntiForgeryToken]
+    public async Task<IActionResult> Edit(Generacion generacion)
     {
         try
         {
-            return RedirectToAction(nameof(Index));
+            _context.Update(generacion);
+            await _context.SaveChangesAsync(true);
         }
-        catch
+        catch (DbUpdateConcurrencyException)
         {
-            return View();
+            return View(generacion);
         }
+        return RedirectToAction(nameof(Index));
     }
 
-    public IActionResult Delete(int id)
+    public IActionResult Delete(int? id)
     {
-        return View();
+        if (id is null)
+        {
+            return NotFound();
+        }
+
+        var marca = _context.Generaciones.Include(x => x.Serie).FirstOrDefault(x => x.Id == id);
+        if (marca is null)
+        {
+            return NotFound();
+        }
+
+        return View(marca);
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
-    public IActionResult Delete(int id, IFormCollection collection)
+    [HttpPost][ValidateAntiForgeryToken]
+    public async Task<IActionResult> Delete(int id)
     {
-        try
+        var generacion = _context.Generaciones.Find(id);
+        if (generacion is not null)
         {
-            return RedirectToAction(nameof(Index));
+            _context.Generaciones.Remove(generacion);
+            await _context.SaveChangesAsync(true);
         }
-        catch
-        {
-            return View();
-        }
+        return RedirectToAction(nameof(Index));
     }
     #endregion
 }

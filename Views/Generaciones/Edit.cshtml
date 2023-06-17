@@ -1,8 +1,7 @@
-﻿@model CarSun.Models.Serie
+﻿@model CarSun.Models.Generacion
 
 @{
-    ViewData["Title"] = "Serie - Editar";
-    var actualidad = "Actualidad";
+    ViewData["Title"] = "Generación - Editar";
 }
 
 <div class="card">
@@ -15,32 +14,37 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" asp-for="Id" />
                 <div class="form-group">
+                    <label asp-for="Iteracion" class="control-label"></label>
+                    <input asp-for="Iteracion" class="form-control" />
+                    <span asp-validation-for="Iteracion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
                     <label asp-for="Nombre" class="control-label"></label>
                     <input asp-for="Nombre" class="form-control" />
                     <span asp-validation-for="Nombre" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Marca" class="control-label">Marca</label>
-                    <select asp-items="ViewBag.Marcas" asp-for="MarcaId" class="form-control"></select>
+                    <label asp-for="FechaInicio" class="control-label"></label>
+                    <input asp-for="FechaInicio" class="form-control" />
+                    <span asp-validation-for="FechaInicio" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <label asp-for="Generaciones" class="control-label">Generaciones</label>
+                    <label asp-for="FechaFin" class="control-label"></label>
+                    <input asp-for="FechaFin" class="form-control" />
+                    <span asp-validation-for="FechaFin" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Serie" class="control-label">Serie</label>
+                    <select asp-items="ViewBag.Serie" asp-for="SerieId" class="form-control"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Modelos" class="control-label">Generaciones</label>
                     <ul class="list-group-numbered list-unstyled">
-                        @foreach (var subitem in Model.Generaciones.OrderBy(g => g.Iteracion))
+                        @foreach (var subitem in Model.Modelos.ToList())
                         {
                             <li class="list-group-item align-items-center">
                                 @subitem.Nombre |
-                                <span class="text-muted">@subitem.FechaInicio.Date.ToShortDateString() - </span>
-                                <span class="text-muted">
-                                    @if (subitem.FechaFin.HasValue)
-                                    {
-                                        @subitem.FechaFin.Value.Date.ToShortDateString()
-                                    }
-                                    else
-                                    {
-                                        @actualidad
-                                    }
-                                </span>
+                                <span class="text-muted">@subitem.Carroceria </span>
                                 <div class="float-end">
                                     <a class="link-primary" asp-controller="Generaciones" asp-action="Edit" asp-route-id="@subitem.Id">Editar</a>
                                     <span> </span>
@@ -49,7 +53,7 @@
                             </li>
                         }
                         <li class="list-group-item align-items-center">
-                            <a class="link-primary" asp-controller="Generaciones" asp-route-serieId="@Model.Id" asp-action="Create">Crear y añadir</a>
+                            <a class="link-primary" asp-controller="Modelos" asp-route-generacionId="@Model.Id" asp-action="Create">Crear y añadir</a>
                         </li>
                     </ul>
                 </div>

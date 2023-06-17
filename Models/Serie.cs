@@ -16,7 +16,7 @@ public class Serie
 
     #region Propiedades
     public int Id { get; set; }
-    [Display(Name = "Fecha Serie")]
+    [Display(Name = "Nombre Serie")]
     public string Nombre { get; set; }
     #endregion
 
