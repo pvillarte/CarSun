@@ -3,8 +3,10 @@ using CarSun.Models.Helper;
 using CarSun.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CarSun.Controllers;
+[Authorize]
 public class GeneracionesController : Controller
 {
     #region Setup contexto
@@ -30,8 +32,7 @@ public class GeneracionesController : Controller
         return View(generacion);
     }
 
-    [HttpPost]
-    [ValidateAntiForgeryToken]
+    [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "Edit")]
     public async Task<IActionResult> Create(Generacion generacion)
     {
         try
@@ -62,7 +63,7 @@ public class GeneracionesController : Controller
         return View(generacion);
     }
 
-    [HttpPost][ValidateAntiForgeryToken]
+    [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "Edit")]
     public async Task<IActionResult> Edit(Generacion generacion)
     {
         try
@@ -93,7 +94,7 @@ public class GeneracionesController : Controller
         return View(marca);
     }
 
-    [HttpPost][ValidateAntiForgeryToken]
+    [HttpPost][ValidateAntiForgeryToken][Authorize(Policy = "Edit")]
     public async Task<IActionResult> Delete(int id)
     {
         var generacion = _context.Generaciones.Find(id);
